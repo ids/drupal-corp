@@ -59,5 +59,6 @@ deploy_to_dev:
     - export DRUPALDB_USER=${dev_db_user}
     - export DRUPALDB_PASSWORD=${dev_db_pwd}
     - /bin/sh $CI_PROJECT_DIR/ci-deploy.sh ${CI_BUILD_REF_NAME}_${CI_BUILD_REF}
+    - kubectl get pods
   only:
   - develop
