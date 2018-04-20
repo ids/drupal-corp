@@ -19,7 +19,7 @@ variables:
   KUBECONFIG: /etc/deploy/config
   DEV_NAMESPACE: web
 
-  DOCKERHUB_IMAGE: idstudios/drupal
+  DOCKERHUB_IMAGE: idstudios/drupal-corp
 
 build_images:
   stage: build
