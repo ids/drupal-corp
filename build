@@ -1,0 +1,10 @@
+
+if [ -z $IMAGE_REPO ]; then
+  IMAGE_REPO=idstudios
+fi 
+IMAGE_NAME=drupal-corp
+
+echo "** Building Drupal Corp **"
+IMAGE_TAG=latest
+docker build --no-cache -t $IMAGE_REPO/$IMAGE_NAME:$IMAGE_TAG .
+docker push $IMAGE_REPO/$IMAGE_NAME:$IMAGE_TAG
