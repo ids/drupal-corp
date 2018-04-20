@@ -28,15 +28,15 @@ build_images:
     - docker
   script:
     - cd $CI_PROJECT_DIR
+    - export IMAGE_VERSION=latest
+    - echo ${CI_COMMIT_REF_NAME}
+    - (if [ "${CI_COMMIT_REF_NAME}" == "develop" ]; then export IMAGE_VERSION=develop; fi);
+    - echo building :${IMAGE_VERSION} version
     - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
     - docker build -t ${CONTAINER_IMAGE} .
     - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE_LATEST}
     - docker push ${CONTAINER_IMAGE}
     - docker push ${CONTAINER_IMAGE_LATEST}
-    - export IMAGE_VERSION=latest
-    - echo ${CI_COMMIT_REF_NAME}
-    - (if [ "${CI_COMMIT_REF_NAME}" == "develop" ]; then export IMAGE_VERSION=develop; fi);
-    - echo building :${IMAGE_VERSION} version
     - echo "${dockerhub_password}" | docker login -u "${dockerhub_username}" --password-stdin 
     - docker tag ${CONTAINER_IMAGE} ${DOCKERHUB_IMAGE}:${IMAGE_VERSION}
     - docker push $DOCKERHUB_IMAGE:$IMAGE_VERSION
